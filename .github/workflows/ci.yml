@@ -1,0 +1,25 @@
+name: Test suite
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Start the webservice
+      run: docker-compose up -d
+
+    - name: Wait for API
+      uses: iFaxity/wait-on-action@v1.1.0
+      with:
+        resource: http://localhost:5000/locations
+
+    - name: Execute load tests
+      run: npx artillery run tests/demo_api_load.yml
