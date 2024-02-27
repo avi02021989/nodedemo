@@ -9,14 +9,9 @@ on:
 jobs:
   load-test:
     runs-on: ubuntu-latest
-    container: artilleryio/artillery:latest
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
-
-    - name: Make reports directory
-      run: mkdir reports
+    - uses: actions/checkout@v3
 
     - name: Start the webservice
       run: docker-compose up -d
@@ -27,13 +22,9 @@ jobs:
         resource: http://localhost:5000/locations
 
     - name: Execute load tests
-      run: /home/node/artillery/bin/run run --output reports/report.json tests/demo_api_load.yml
-      
-    - name: Create html Report
-      run: /home/node/artillery/bin/run report --output reports/report.html reports/report.json
+      run: npx artillery run tests/demo_api_load.yml --output tests/report.json
 
-    - name: Archive test report
-      uses: actions/upload-artifact@v2
-      with:
-        name: artillery-test-report
-        path: reports/*
+    - name: Generate load tests Report
+      run: artillery report tests/report.json --output tests/report.html
+
+      
