@@ -23,6 +23,6 @@ jobs:
     - name: Create directory
       run: mkdir reports
     - name: Execute load tests
-      run: artillery run --output reports/report.json tests/demo_api_load.yml
+      run: npx artillery run --output reports/report.json tests/demo_api_load.yml
     - name: Create html Report
-      run: artillery report --output reports/report.html reports/report.json
+      run: npx artillery report --output reports/report.html reports/report.json
