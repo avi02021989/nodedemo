@@ -20,9 +20,9 @@ jobs:
       uses: iFaxity/wait-on-action@v1.1.0
       with:
         resource: http://localhost:5000/locations
-
+    - name: Create directory
+      run: mkdir reports
     - name: Execute load tests
-      run:  npx artillery run tests/demo_api_load.yml
-      
-    - name: Generate load tests Report
-      run:  npx artillery run tests/demo_api_load.yml --output ./report.json
+      run: artillery run --output reports/report.json tests/demo_api_load.yml
+    - name: Create html Report
+      run: artillery report --output reports/report.html reports/report.json
