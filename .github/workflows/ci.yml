@@ -22,4 +22,4 @@ jobs:
         resource: http://localhost:5000/locations
 
     - name: Execute load tests
-      run:  artillery run demo_api_load.yml --output report.json
+      run:  npx artillery run demo_api_load.yml --output report.json
