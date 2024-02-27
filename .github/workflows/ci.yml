@@ -25,6 +25,6 @@ jobs:
       run: npx artillery run tests/demo_api_load.yml --output tests/report.json
 
     - name: Generate load tests Report
-      run: artillery report tests/report.json --output tests/report.html
+      run: npx artillery report tests/report.json --output tests/report.html
 
       
